@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd  
+          http://www.springframework.org/schema/data/mongo  
+          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd  
+          http://www.springframework.org/schema/beans  
+          http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <context:property-placeholder location="classpath:/mongodb.properties"/>
+
+    <context:component-scan base-package="spring.data.sample.service"></context:component-scan>
+
+    <mongo:mongo host="${mongodb.host}" port="${mongodb.port}">
+        <mongo:options connections-per-host="${mongodb.connectionsPerHost}"
+                       threads-allowed-to-block-for-connection-multiplier="${mongodb.threadsAllowedToBlockForConnectionMultiplier}"
+                       connect-timeout="${mongodb.connectTimeout}" max-wait-time="${mongodb.maxWaitTime}"
+                       auto-connect-retry="${mongodb.autoConnectRetry}" socket-keep-alive="${mongodb.socketKeepAlive}"
+                       socket-timeout="${mongodb.socketTimeout}" slave-ok="${mongodb.slaveOk}"
+                       write-number="${mongodb.writeNumber}" write-timeout="${mongodb.writeTimeout}"
+                       write-fsync="${mongodb.writeFsync}"/>
+    </mongo:mongo>
+
+    <mongo:db-factory id="mongoDbFactory" dbname="${mongodb.dbName}"
+                      mongo-ref="mongo"/>
+
+    <mongo:repositories base-package="spring.data.sample.repository"/>
+
+    <mongo:template id="mongoTemplate" db-factory-ref="mongoDbFactory"
+                    converter-ref="mappingMongoConverter"/>
+    <mongo:gridFsTemplate id="gridFsTemplate"
+                          db-factory-ref="mongoDbFactory" converter-ref="mappingMongoConverter"/>
+
+    <mongo:mapping-converter id="mappingMongoConverter"
+                             db-factory-ref="mongoDbFactory" mapping-context-ref="mappingContext"
+                             type-mapper-ref="defaultMongoTypeMapper">
+    </mongo:mapping-converter>
+
+    <bean id="mappingContext"
+          class="org.springframework.data.mongodb.core.mapping.MongoMappingContext"/>
+
+    <bean id="defaultMongoTypeMapper"
+          class="org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper">
+        <constructor-arg name="typeKey">
+            <null/>
+        </constructor-arg>
+    </bean>
+
+</beans>
