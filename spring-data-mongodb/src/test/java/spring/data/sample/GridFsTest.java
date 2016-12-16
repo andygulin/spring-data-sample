@@ -19,9 +19,8 @@ public class GridFsTest extends BaseTest {
 
     @Test
     public void store() throws IOException {
-        InputStream is = null;
         File file = new File("C:/Windows/notepad.exe");
-        is = FileUtils.openInputStream(file);
+        InputStream is = FileUtils.openInputStream(file);
         String contentType = "";
         DBObject dbObject = new BasicDBObject();
         GridFSFile fsFile = gridFsTemplate.store(is, file.getName(),
@@ -31,7 +30,7 @@ public class GridFsTest extends BaseTest {
 
     @Test
     public void storeFile() throws IOException {
-        InputStream is = null;
+        InputStream is;
         File dir = new File("C:\\Windows");
         File[] files = dir.listFiles();
         for (File file : files) {

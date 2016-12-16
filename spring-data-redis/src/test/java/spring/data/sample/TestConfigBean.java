@@ -2,8 +2,6 @@ package spring.data.sample;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
@@ -31,23 +29,17 @@ public class TestConfigBean extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void set() {
-        redisTemplate.execute(new RedisCallback<Object>() {
-            @Override
-            public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                connection.set(serialize("name"), serialize("andy"));
-                return null;
-            }
+        redisTemplate.execute((RedisCallback<Object>) connection -> {
+            connection.set(serialize("name"), serialize("andy"));
+            return null;
         });
     }
 
     @Test
     public void get(){
-        Object result = redisTemplate.execute(new RedisCallback<Object>() {
-            @Override
-            public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                byte[] name = connection.get(serialize("name"));
-                return deserialize(name);
-            }
+        Object result = redisTemplate.execute((RedisCallback<Object>) connection -> {
+            byte[] name = connection.get(serialize("name"));
+            return deserialize(name);
         });
         System.out.println(result);
     }

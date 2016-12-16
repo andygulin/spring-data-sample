@@ -1,15 +1,14 @@
 package spring.data.sample;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Test;
 import org.springframework.test.annotation.Repeat;
+import spring.data.sample.bean.User;
 
-import spring.data.elasticsearch.bean.User;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class IndexTest extends BaseTest {
 
