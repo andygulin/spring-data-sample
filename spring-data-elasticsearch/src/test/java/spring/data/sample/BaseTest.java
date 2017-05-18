@@ -39,8 +39,7 @@ public abstract class BaseTest extends AbstractJUnit4SpringContextTests {
 	}
 
 	protected String getAddress() {
-		final String[] addrs = { "shanghai", "beijing", "guangzhou", "shenzhen", "hunan", "henan", "xinjiang",
-				"haerbing", "jinan", "nanjing" };
+		final String[] addrs = { "shanghai", "beijing", "guangzhou", "shenzhen", "hunan", "henan", "xinjiang", "haerbing", "jinan", "nanjing" };
 		return addrs[RandomUtils.nextInt(addrs.length - 1)];
 	}
 

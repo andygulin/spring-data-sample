@@ -12,8 +12,7 @@
 		cluster-nodes="192.168.209.128:9300,192.168.209.132:9300"
 		cluster-name="elasticsearch-cluster" />
 
-	<bean name="elasticsearchTemplate"
-		class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
+	<bean name="elasticsearchTemplate" class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
 		<constructor-arg name="client" ref="client" />
 	</bean>
 
