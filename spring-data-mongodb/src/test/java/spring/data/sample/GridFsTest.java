@@ -37,7 +37,7 @@ public class GridFsTest extends BaseTest {
             if (file.isFile()) {
                 try {
                     is = FileUtils.openInputStream(file);
-                }catch (Exception e) {
+                } catch (Exception e) {
                     continue;
                 }
                 GridFSFile fsFile = gridFsTemplate.store(is, file.getName());

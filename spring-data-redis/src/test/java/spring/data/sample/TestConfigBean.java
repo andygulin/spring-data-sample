@@ -36,7 +36,7 @@ public class TestConfigBean extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void get(){
+    public void get() {
         Object result = redisTemplate.execute((RedisCallback<Object>) connection -> {
             byte[] name = connection.get(serialize("name"));
             return deserialize(name);
