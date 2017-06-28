@@ -5,8 +5,6 @@
     <artifactId>spring-data-sample</artifactId>
     <version>1.0</version>
     <modules>
-        <module>spring-data-cassandra</module>
-        <module>spring-data-elasticsearch</module>
         <module>spring-data-jpa</module>
         <module>spring-data-mongodb</module>
         <module>spring-data-redis</module>
